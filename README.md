@@ -6,6 +6,6 @@ notion database tracker
 
 ## How to use this
 
-- Create Notion's Integration
-  - Fill name, logo, private inputs
+- Create an integration in Notion
+  - Fill name, logo, private input
   - Copy token `secret_g1h0PcYgPAyGrxZlSCB2MHKSMej1IVmKMzS5RxbB6Wv`
