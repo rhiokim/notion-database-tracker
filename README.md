@@ -20,3 +20,15 @@ notion database tracker
 - Check diff snapshot with lastest changes
   - Make response added/updated/deleted diff(snapshot, lastestChanges)
 
+## How to run in local
+
+```sh
+git clone git@github.com:rhiokim/notion-database-tracker.git
+cd notion-database-tracker
+
+NOTION_TOKEN=<YOUR_NOTION_TOKEN> NOTION_DATABASE_ID=<NOTION_DATABASE_ID> \
+deno run --allow-net \
+--allow-env \
+--location http://localhost \
+mod.ts
+```
