@@ -9,11 +9,12 @@ import {
  * How to use npm package in Deno?
  * https://deno.land/manual@v1.15.3/npm_nodejs/cdns
  */
-import {
-  addedDiff,
-  deletedDiff,
-  updatedDiff,
-} from "https://esm.sh/deep-object-diff";
+// import {
+//   addedDiff,
+//   deletedDiff,
+//   updatedDiff,
+// } from "https://esm.sh/deep-object-diff";
+import { addedDiff, deletedDiff, updatedDiff } from 'https://cdn.skypack.dev/deep-object-diff'
 
 const notion = new Client({
   auth: Deno.env.get("NOTION_TOKEN"),
