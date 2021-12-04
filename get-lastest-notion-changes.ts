@@ -9,7 +9,11 @@ import {
  * How to use npm package in Deno?
  * https://deno.land/manual@v1.15.3/npm_nodejs/cdns
  */
-import { updatedDiff } from "https://esm.sh/deep-object-diff";
+import {
+  addedDiff,
+  deletedDiff,
+  updatedDiff,
+} from "https://esm.sh/deep-object-diff";
 
 const notion = new Client({
   auth: Deno.env.get("NOTION_TOKEN"),
@@ -44,22 +48,23 @@ export default async function getLastestNotionDatabaseChanges(dbId: string) {
       [p.id]: p,
     }), {});
 
-    const diff = updatedDiff(snapshot, indexedPages);
-    console.log("diff:", diff);
+    const added = addedDiff(snapshot, indexedPages);
+    const updated = updatedDiff(snapshot, indexedPages);
+    const deleted = deletedDiff(snapshot, indexedPages);
 
     /** Save lastest changes */
     localStorage.setItem("snapshot", JSON.stringify(indexedPages || {}));
 
-    return [diff, results];
+    return { added, updated, deleted, results };
 
     // snapshot = indexedPages
   } catch (error) {
     if (error.code === APIErrorCode.ObjectNotFound) {
-      console.log(error);
+      console.error(error);
     } else {
       console.error(error);
     }
 
-    return [];
+    return {};
   }
 }
