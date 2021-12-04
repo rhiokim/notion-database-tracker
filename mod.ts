@@ -1,64 +1,23 @@
-/**
- * https://deno.land/x/notion_sdk@v0.4.4
- */
-import {
-  APIErrorCode,
-  Client,
-} from "https://deno.land/x/notion_sdk/src/mod.ts";
-/**
- * How to use npm package in Deno?
- * https://deno.land/manual@v1.15.3/npm_nodejs/cdns
- */
-import { updatedDiff } from "https://esm.sh/deep-object-diff";
+import { serve } from "https://deno.land/std@0.114.0/http/server.ts";
+import getLastestNotionDatabaseChanges from "./get-lastest-notion-changes.ts";
 
-const notion = new Client({
-  auth: Deno.env.get("NOTION_TOKEN"),
-});
-
-/**
- * How to unwrap type of Promise<T>?
- * https://stackoverflow.com/questions/48011353/how-to-unwrap-the-type-of-a-promise */
-type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T;
-
-/**
- * How to manage small persistent data in Deno
- * https://deno.land/manual@v1.15.1/runtime/web_storage_api
- */
-const snapshot: {
-  [key: string]: Awaited<
-    ReturnType<typeof notion.databases.query>
-  >["results"][0];
-} = JSON.parse(localStorage.getItem("snapshot") || "{}");
-
-try {
+async function handler(_req: Request) {
   const dbId = Deno.env.get("NOTION_DATABASE_ID");
+
   if (!dbId) {
     throw Error("NO NOTION DATABASE ENVIRONMENT ID");
   }
 
-  const { results } = await notion.databases.query({
-    database_id: dbId,
+  const [diff, all] = await getLastestNotionDatabaseChanges(dbId);
+
+  const response = new Response(JSON.stringify({ all, diff }), {
+    status: 200,
+    headers: {
+      "content-type": "application/json",
+    },
   });
 
-  /**
-   * To diff with deep object
-   */
-  const indexedPages = results.reduce((accu, p) => ({
-    ...accu,
-    [p.id]: p,
-  }), {});
-
-  const diff = updatedDiff(snapshot, indexedPages);
-  console.log("diff:", diff);
-
-  /** Save lastest changes */
-  localStorage.setItem("snapshot", JSON.stringify(indexedPages || {}));
-
-  // snapshot = indexedPages
-} catch (error) {
-  if (error.code === APIErrorCode.ObjectNotFound) {
-    console.log(error);
-  } else {
-    console.error(error);
-  }
+  return response;
 }
+
+serve(handler);
