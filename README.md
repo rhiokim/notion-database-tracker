@@ -1,13 +1,13 @@
 # notion-database-tracker
 
-notion database tracker
+Work in progress.
 
 [![Deploy this example](https://deno.com/deno-deploy-button.svg)](https://dash.deno.com/new?url=https://raw.githubusercontent.com/rhiokim/notion-database-tracker/main/mod.ts&env=NOTION_TOKEN,NOTION_DATABASE_ID)
 
 ## Prerequisites
 
-* [Deno](https://deno.land/) above v1.0
-* [Notion](https://www.notion.so/) Account
+- [Deno](https://deno.land/) above v1.0
+- [Notion](https://www.notion.so/) Account
 
 ## How to use this
 
@@ -38,3 +38,5 @@ deno run --allow-net \
 --location http://localhost \
 mod.ts
 ```
+
+## References

@@ -8,7 +8,7 @@ async function handler(_req: Request) {
     throw Error("NO NOTION DATABASE ENVIRONMENT ID");
   }
 
-  const { added, updated, deleted, results } =
+  const { added, updated, deleted, raw } =
     await getLatestNotionDatabaseChanges(dbId);
 
   /**
@@ -16,7 +16,7 @@ async function handler(_req: Request) {
    * https://stackoverflow.com/a/32179927/2689389
    */
   const response = new Response(
-    JSON.stringify({ all: results, added, updated, deleted }, function (_, v) {
+    JSON.stringify({ raw, added, updated, deleted }, function (_, v) {
       return v === undefined ? null : v;
     }),
     {
