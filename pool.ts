@@ -24,7 +24,7 @@ try {
   // Create the table
   await client.queryObject`
     CREATE TABLE IF NOT EXISTS notion (
-      id uuid DEFAULT uuid_generate_v4(),
+      id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
       diff json NOT NULL,
       raw json NOT NULL,
       last_updated_at TIMESTAMP NOT NULL
