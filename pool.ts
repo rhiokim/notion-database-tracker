@@ -23,7 +23,7 @@ await client.connect();
 try {
   // Create the table
   await client.queryObject`
-    CREATE TABLE IF NOT EXISTS ${table} (
+    CREATE TABLE IF NOT EXISTS notion (
       id uuid DEFAULT uuid_generate_v4(),
       diff json NOT NULL,
       raw json NOT NULL,
@@ -32,8 +32,10 @@ try {
   `;
 
   await client.queryObject`
-    INSERT INTO ${table} (id, diff, raw, last_updated_at) VALUES (${dbId}, '{}', '{}', current_timestamp)
+    INSERT INTO notion (id, diff, raw, last_updated_at) VALUES (${dbId}, '{}', '{}', current_timestamp)
   `;
+} catch(error) {
+  console.error(error)
 } finally {
   // Release the connection back into the pool
   await client.end();

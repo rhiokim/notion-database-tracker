@@ -8,7 +8,7 @@ import getNotionDatabase from "./get-notion-database.ts";
 import client, { NotionSnapshotRow } from "./pool.ts";
 
 const dbId = Deno.env.get("NOTION_DATABASE_ID");
-const table = Deno.env.get('DATABASE_TABLE');
+// const table = Deno.env.get('DATABASE_TABLE');
 
 async function handler(_req: Request) {
 
@@ -19,7 +19,7 @@ async function handler(_req: Request) {
   try {
     await client.connect();
     const results = await client.queryObject<NotionSnapshotRow>`
-          SELECT * FROM ${table} ORDER BY last_updated_at ASC LIMIT 1
+          SELECT * FROM notion ORDER BY last_updated_at ASC LIMIT 1
         `;
 
     /** fetch notion database */
@@ -28,7 +28,7 @@ async function handler(_req: Request) {
 
     /** save latest notion database into postgres */
     await client.queryObject`
-      UPDATE ${table} SET diff=${JSON.stringify(diff)}, raw=${
+      UPDATE notion SET diff=${JSON.stringify(diff)}, raw=${
       JSON.stringify(result)
     } WHERE id = ${dbId}
     `;
