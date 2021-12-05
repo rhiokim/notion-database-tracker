@@ -9,16 +9,17 @@ notion database tracker
 - Create an integration in Notion
   - Fill name, logo, private input
   - Copy token `secret_g1h0PcYgPAyGrxZlSCB2MHKSMej1IVmKMzS5RxbB6Wv`
-- Deploy to Deno v3
+  - Add notion integration account to notion database that you want to track
+- Deploy to Deno v3 with token and database id
 
 ## How to work
 
-- Fetch Notion Database
-  - Store snapshot into localStorage with lastest changes
+- Fetch Notion database
+  - Store snapshot into localStorage with latest changes
 - Change state of your notion database menually
   - Call notion-database-tracker endpoint `notion-database-tracker.deno.dev`
-- Check diff snapshot with lastest changes
-  - Make response added/updated/deleted diff(snapshot, lastestChanges)
+- Check diff snapshot with latest changes
+  - Make response added/updated/deleted diff(snapshot, latestChanges)
 
 ## How to run in local
 
