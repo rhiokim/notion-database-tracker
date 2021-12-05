@@ -19,7 +19,7 @@ async function handler(_req: Request) {
   try {
     await client.connect();
     const results = await client.queryObject<NotionSnapshotRow>`
-          SELECT * FROM notion ORDER BY last_updated_at ASC LIMIT 1
+          SELECT * FROM notion WHERE id = ${dbId}
         `;
 
     /** fetch notion database */
@@ -30,7 +30,7 @@ async function handler(_req: Request) {
     await client.queryObject`
       UPDATE notion SET diff=${JSON.stringify(diff)}, raw=${
       JSON.stringify(result)
-    } WHERE id = ${dbId}
+    }, last_updated_at=current_timestamp WHERE id = ${dbId}
     `;
     client.end();
 
