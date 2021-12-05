@@ -4,6 +4,11 @@ notion database tracker
 
 [![Deploy this example](https://deno.com/deno-deploy-button.svg)](https://dash.deno.com/new?url=https://raw.githubusercontent.com/rhiokim/notion-database-tracker/main/mod.ts&env=NOTION_TOKEN,NOTION_DATABASE_ID)
 
+## Prerequisites
+
+* [Deno](https://deno.land/) above v1.0
+* [Notion](https://www.notion.so/) Account
+
 ## How to use this
 
 - Create an integration in Notion
