@@ -6,7 +6,7 @@ import {
   Client,
 } from "https://deno.land/x/notion_sdk/src/mod.ts";
 /**
- * How to use npm package in Deno?
+ * How to use npm package in Deno? under
  * https://deno.land/manual@v1.15.3/npm_nodejs/cdns
  */
 // import {
@@ -21,11 +21,11 @@ const notion = new Client({
 });
 
 /**
- * How to unwrap type of Promise<T>?
+ * How to unwrap type of Promise<T> under v4.x latest?
  * https://stackoverflow.com/questions/48011353/how-to-unwrap-the-type-of-a-promise */
 type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T;
 
-export default async function getLastestNotionDatabaseChanges(dbId: string) {
+export default async function getLatestNotionDatabaseChanges(dbId: string) {
   /**
    * How to manage small persistent data in Deno
    * https://deno.land/manual@v1.15.1/runtime/web_storage_api
@@ -53,12 +53,11 @@ export default async function getLastestNotionDatabaseChanges(dbId: string) {
     const updated = updatedDiff(snapshot, indexedPages);
     const deleted = deletedDiff(snapshot, indexedPages);
 
-    /** Save lastest changes */
+    /** Save latest changes */
     localStorage.setItem("snapshot", JSON.stringify(indexedPages || {}));
 
     return { added, updated, deleted, results };
 
-    // snapshot = indexedPages
   } catch (error) {
     if (error.code === APIErrorCode.ObjectNotFound) {
       console.error(error);

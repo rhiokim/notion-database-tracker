@@ -1,5 +1,5 @@
 import { serve } from "https://deno.land/std@0.114.0/http/server.ts";
-import getLastestNotionDatabaseChanges from "./get-lastest-notion-changes.ts";
+import getLatestNotionDatabaseChanges from "./get-latest-notion-changes.ts";
 
 async function handler(_req: Request) {
   const dbId = Deno.env.get("NOTION_DATABASE_ID");
@@ -9,14 +9,14 @@ async function handler(_req: Request) {
   }
 
   const { added, updated, deleted, results } =
-    await getLastestNotionDatabaseChanges(dbId);
+    await getLatestNotionDatabaseChanges(dbId);
 
   /**
    * The JSON spec does not allow undefined values, but does allow null values.
    * https://stackoverflow.com/a/32179927/2689389
    */
   const response = new Response(
-    JSON.stringify({ all: results, added, updated, deleted }, function (k, v) {
+    JSON.stringify({ all: results, added, updated, deleted }, function (_, v) {
       return v === undefined ? null : v;
     }),
     {
