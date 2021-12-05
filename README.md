@@ -2,18 +2,30 @@
 
 Work in progress.
 
-[![Deploy this example](https://deno.com/deno-deploy-button.svg)](https://dash.deno.com/new?url=https://raw.githubusercontent.com/rhiokim/notion-database-tracker/main/mod.ts&env=NOTION_TOKEN,NOTION_DATABASE_ID)
+[![Deploy this example](https://deno.com/deno-deploy-button.svg)](https://dash.deno.com/new?url=https://raw.githubusercontent.com/rhiokim/notion-database-tracker/main/mod.ts&env=NOTION_TOKEN,NOTION_DATABASE_ID,POSTGRES_DATABASE_URL,DATABASE_TABLE)
 
 ## Prerequisites
 
 - [Deno](https://deno.land/) above v1.0
 - [Notion](https://www.notion.so/) Account
+- [Supabase](https://supabase.io/)
+
+### Deno Deploy
+
+environment variable
+
+```sh
+NOTION_TOKEN=secret_g1hUavphAXyG1Ikff9xRDKvjRK7sImmv4SxyS6ScGiv
+NOTION_DATABASE_ID=4d18218195a446c28a5866531f56ae13
+POSTGRES_DATABASE_URL=postgres://postgres:XFE8GAC3_j4oB.2vN!AuKf8UW@db.pxiommvecxftwmhrhkzn.supabase.co:5432/postgres?sslmode=disable
+DATABASE_TABLE=notion
+```
 
 ## How to use this
 
 - Create an integration in Notion
   - Fill name, logo, private input
-  - Copy token `secret_g1h0PcYgPAyGrxZlSCB2MHKSMej1IVmKMzS5RxbB6Wv`
+  - Copy token `secret_g1hUavphAXyG1Ikff9xRDKvjRK7sImmv4SxyS6ScGiv`
   - Add notion integration account to notion database that you want to track
 - Deploy to Deno v3 with token and database id
 
@@ -40,3 +52,5 @@ mod.ts
 ```
 
 ## References
+
+- Postgres - https://deno.com/deploy/docs/tutorial-postgres

@@ -10,6 +10,16 @@ const notion = new Client({
   auth: Deno.env.get("NOTION_TOKEN"),
 });
 
+/**
+ * How to unwrap type of Promise<T> with Deno v4.x below?
+ * https://stackoverflow.com/questions/48011353/how-to-unwrap-the-type-of-a-promise */
+export type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T;
+export type Snapshot = {
+  [key: string]: Awaited<
+    ReturnType<typeof notion.databases.query>
+  >["results"][0];
+};
+
 export default async function (dbId: string) {
   try {
     const { results } = await notion.databases.query({
